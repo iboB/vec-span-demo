@@ -1,0 +1,30 @@
+cmake_minimum_required(VERSION 3.14 FATAL_ERROR)
+
+project(vec-span-demo)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_EXTENSIONS OFF)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+if(MSVC)
+    set(compilerFlags "-D_CRT_SECURE_NO_WARNINGS /Zc:__cplusplus /permissive-\
+        /w34100 /w34189 /w34701 /w34702 /w34703 /w34706 /w34714 /w34913\
+        /wd4251 /wd4275"
+    )
+else()
+    set(compilerFlags "-Wall -Wextra")
+endif()
+
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${compilerFlags}")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${compilerFlags}")
+
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+
+include(./get_cpm.cmake)
+CPMAddPackage(gh:iboB/itlib@1.5.1)
+
+macro(add_demo name)
+    add_executable(${name} ${name}.cpp)
+    target_link_libraries(${name} itlib)
+endmacro()
+
