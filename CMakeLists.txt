@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.14 FATAL_ERROR)
 
 project(vec-span-demo)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -36,3 +36,4 @@ add_demo(pod_vector)
 add_demo(span)
 add_demo(stride_span)
 add_demo(poly_span)
+add_demo(ranges)
