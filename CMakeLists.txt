@@ -22,10 +22,19 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 include(./get_cpm.cmake)
 CPMAddPackage(gh:iboB/itlib@1.5.1)
+CPMAddPackage(gh:iboB/picobench@2.01)
 
 macro(add_demo name)
     add_executable(${name} ${name}.cpp)
     target_link_libraries(${name} itlib)
+endmacro()
+
+add_library(pb-main STATIC pb-main.cpp)
+target_link_libraries(pb-main PUBLIC picobench)
+
+macro(add_bench name)
+    add_executable(${name}-bench ${name}-bench.cpp)
+    target_link_libraries(${name}-bench itlib pb-main)
 endmacro()
 
 add_demo(moving)
@@ -37,3 +46,4 @@ add_demo(span)
 add_demo(stride_span)
 add_demo(poly_span)
 add_demo(ranges)
+add_bench(ranges)
